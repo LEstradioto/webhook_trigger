@@ -11,6 +11,6 @@ jobs:
     steps:
       - name: Trigger webhook
         run: |
-          curl -X POST ${{ secrets.WEBHOOK_URL }} \
-               -H "Content-Type: application/json" \
-               -d '{"event": "push", "repository": "${{ github.repository }}", "commit": "${{ github.sha }}"}'
+          curl -X GET \
+               --url "http://${{ secrets.COOLIFY_IP }}:8000/api/v1/deploy?uuid=${{ secrets.COOLIFY_UUID }}&force=false" \
+               -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}"
